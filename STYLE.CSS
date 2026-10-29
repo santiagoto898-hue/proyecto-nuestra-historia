@@ -1,0 +1,194 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+body, html {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+#map {
+  width: 100vw;
+  height: 100vh;
+}
+
+/* Botón flotante GPS */
+#btn-location {
+  position: absolute;
+  bottom: 25px;
+  right: 25px;
+  z-index: 1000;
+  background-color: #ce1126;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 22px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#btn-location:active {
+  transform: scale(0.95);
+}
+
+/* Modales */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1500;
+  padding: 15px;
+}
+
+.oculto {
+  display: none !important;
+}
+
+.modal-contenido {
+  background-color: #1e1e1e;
+  color: #f1f1f1;
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 12px;
+  padding: 20px;
+  position: relative;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+}
+
+.cerrar {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #ccc;
+  cursor: pointer;
+}
+
+.cerrar:hover {
+  color: #fff;
+}
+
+.badge-fecha, .badge-categoria {
+  display: inline-block;
+  font-size: 0.85rem;
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin: 10px 5px 15px 0;
+}
+
+.badge-fecha {
+  background-color: #333;
+  color: #ffd100;
+}
+
+.badge-categoria {
+  background-color: #ce1126;
+  color: #fff;
+}
+
+/* Galería de fotos dentro de la Modal */
+.modal-galeria {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.contenedor-img {
+  flex: 1;
+  text-align: center;
+}
+
+.contenedor-img label {
+  display: block;
+  font-size: 0.8rem;
+  margin-bottom: 5px;
+  color: #aaa;
+}
+
+.modal-galeria img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  object-position: top; /* Enfoca la parte superior para no cortar rostros/monumentos */
+  border-radius: 8px;
+  border: 1px solid #444;
+  cursor: pointer; /* Indica que se puede hacer clic */
+  transition: transform 0.2s ease;
+}
+
+.modal-galeria img:hover {
+  transform: scale(1.02);
+}
+
+#modal-descripcion {
+  line-height: 1.5;
+  margin-bottom: 15px;
+  font-size: 0.95rem;
+}
+
+#modal-links {
+  list-style: none;
+  padding-left: 0;
+}
+
+#modal-links li {
+  margin-bottom: 8px;
+}
+
+#modal-links a {
+  color: #4da6ff;
+  text-decoration: none;
+}
+
+#modal-links a:hover {
+  text-decoration: underline;
+}
+
+/* Visor de Imagen Ampliada (Lightbox) */
+#modal-visor-imagen {
+  z-index: 2000;
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.modal-contenido-visor {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-contenido-visor img {
+  max-width: 90vw;
+  max-height: 85vh;
+  border-radius: 8px;
+  object-fit: contain;
+  box-shadow: 0 0 20px rgba(0,0,0,0.8);
+}
+
+#cerrar-visor {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  color: #fff;
+  font-size: 35px;
+  font-weight: bold;
+  cursor: pointer;
+}
