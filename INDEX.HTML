@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mapa Histórico - Bogotá, Cundinamarca y Sumapaz</title>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+ <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Contenedor del Mapa -->
+  <div id="map"></div>
+
+  <!-- Botón Flotante para Ubicación GPS -->
+  <button id="btn-location" title="Mi ubicación actual">📍</button>
+
+  <!-- Ventana Modal de Detalles Históricos -->
+  <div id="modal-historico" class="modal oculto">
+    <div class="modal-contenido">
+      <span id="cerrar-modal" class="cerrar">&times;</span>
+      <h2 id="modal-titulo">Cargando...</h2>
+      <div class="modal-info">
+        <span id="modal-fecha" class="badge-fecha"></span>
+        <span id="modal-categoria" class="badge-categoria"></span>
+      </div>
+      
+      <div class="modal-galeria">
+        <div class="contenedor-img">
+          <label>🏛️ Antes</label>
+          <img id="modal-img-antes" src="" alt="Vista histórica" />
+        </div>
+        <div class="contenedor-img">
+          <label>🏥 Actualmente</label>
+          <img id="modal-img-ahora" src="" alt="Vista actual" />
+        </div>
+      </div>
+
+      <p id="modal-descripcion"></p>
+
+      <h3>Fuentes y Referencias:</h3>
+      <ul id="modal-links"></ul>
+    </div>
+  </div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="app.js"></script>
+  <!-- Visor de imagen ampliada (Lightbox) -->
+  <div id="modal-visor-imagen" class="modal oculto">
+    <div class="modal-contenido-visor">
+      <span id="cerrar-visor">&times;</span>
+      <img id="imagen-ampliada" src="" alt="Imagen ampliada">
+    </div>
+  </div>
+</body>
+</html>
