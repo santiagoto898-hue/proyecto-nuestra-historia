@@ -855,4 +855,34 @@ document.addEventListener("DOMContentLoaded", () => {
     const idx = Math.round(pista.scrollLeft / ancho);
     actualizarDots(idx);
   }, { passive: true });
+  // 👇 PEGA AQUÍ EL RESPALDO TÁCTIL
+  let touchStartX = 0;
+  let touchStartY = 0;
+
+  pista.addEventListener('touchstart', (e) => {
+    if (!e.touches || e.touches.length === 0) return;
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+
+  pista.addEventListener('touchend', (e) => {
+    if (!e.changedTouches || e.changedTouches.length === 0) return;
+    const deltaX = e.changedTouches[0].clientX - touchStartX;
+    const deltaY = e.changedTouches[0].clientY - touchStartY;
+
+    if (Math.abs(deltaX) > 45 && Math.abs(deltaX) > Math.abs(deltaY)) {
+      const ancho = pista.clientWidth || window.innerWidth;
+      const indiceActual = Math.round(pista.scrollLeft / ancho);
+      const siguienteIndice = deltaX < 0
+        ? Math.min(1, indiceActual + 1)
+        : Math.max(0, indiceActual - 1);
+
+      pista.scrollTo({
+        left: siguienteIndice * ancho,
+        behavior: 'smooth'
+      });
+      actualizarDots(siguienteIndice);
+    }
+  }, { passive: true });
+  // 👆 FIN DEL RESPALDO TÁCTIL
 })();
