@@ -856,33 +856,54 @@ document.addEventListener("DOMContentLoaded", () => {
     actualizarDots(idx);
   }, { passive: true });
   // 👇 PEGA AQUÍ EL RESPALDO TÁCTIL
-  let touchStartX = 0;
-  let touchStartY = 0;
+  let inicioX = 0;
+  let inicioY = 0;
+  let scrollInicial = 0;
+  let deslizandoHorizontal = false;
 
   pista.addEventListener('touchstart', (e) => {
     if (!e.touches || e.touches.length === 0) return;
-    touchStartX = e.touches[0].clientX;
-    touchStartY = e.touches[0].clientY;
+    inicioX = e.touches[0].clientX;
+    inicioY = e.touches[0].clientY;
+    scrollInicial = pista.scrollLeft;
+    deslizandoHorizontal = false;
   }, { passive: true });
 
-  pista.addEventListener('touchend', (e) => {
-    if (!e.changedTouches || e.changedTouches.length === 0) return;
-    const deltaX = e.changedTouches[0].clientX - touchStartX;
-    const deltaY = e.changedTouches[0].clientY - touchStartY;
+  pista.addEventListener('touchmove', (e) => {
+    if (!e.touches || e.touches.length === 0) return;
+    const dx = e.touches[0].clientX - inicioX;
+    const dy = e.touches[0].clientY - inicioY;
 
-    if (Math.abs(deltaX) > 45 && Math.abs(deltaX) > Math.abs(deltaY)) {
-      const ancho = pista.clientWidth || window.innerWidth;
-      const indiceActual = Math.round(pista.scrollLeft / ancho);
-      const siguienteIndice = deltaX < 0
-        ? Math.min(1, indiceActual + 1)
-        : Math.max(0, indiceActual - 1);
-
-      pista.scrollTo({
-        left: siguienteIndice * ancho,
-        behavior: 'smooth'
-      });
-      actualizarDots(siguienteIndice);
+    if (!deslizandoHorizontal && Math.abs(dx) > 10 && Math.abs(dx) > Math.abs(dy)) {
+      deslizandoHorizontal = true;
     }
+
+    if (deslizandoHorizontal) {
+      e.preventDefault(); // Evita que el navegador intente hacer scroll vertical o gesto atrás
+      pista.scrollLeft = scrollInicial - dx;
+    }
+  }, { passive: false });
+
+  pista.addEventListener('touchend', (e) => {
+    if (!deslizandoHorizontal) return;
+    const ancho = pista.clientWidth || window.innerWidth;
+    const dx = e.changedTouches && e.changedTouches.length > 0
+      ? e.changedTouches[0].clientX - inicioX
+      : 0;
+
+    let indiceDestino = Math.round(pista.scrollLeft / ancho);
+    if (Math.abs(dx) > 40) {
+      indiceDestino = dx < 0
+        ? Math.min(1, Math.round(scrollInicial / ancho) + 1)
+        : Math.max(0, Math.round(scrollInicial / ancho) - 1);
+    }
+
+    pista.scrollTo({
+      left: indiceDestino * ancho,
+      behavior: 'smooth'
+    });
+    actualizarDots(indiceDestino);
+    deslizandoHorizontal = false;
   }, { passive: true });
   // 👆 FIN DEL RESPALDO TÁCTIL
 })();
