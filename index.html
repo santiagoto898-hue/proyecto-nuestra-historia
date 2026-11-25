@@ -27,16 +27,16 @@
         <span id="modal-categoria" class="badge-categoria"></span>
       </div>
       
-      <div class="modal-galeria">
-        <div class="contenedor-img">
-          <label>🏛️ Antes</label>
-          <img id="modal-img-antes" src="" alt="Vista histórica" />
-        </div>
-        <div class="contenedor-img">
-          <label>🏥 Actualmente</label>
-          <img id="modal-img-ahora" src="" alt="Vista actual" />
-        </div>
-      </div>
+      <div class="galeria-lado-a-lado">
+  <figure class="foto-par">
+    <span class="etiqueta-foto">Antes</span>
+    <img id="modal-img-antes" class="img-ampliable" src="" alt="Imagen histórica del lugar">
+  </figure>
+  <figure class="foto-par">
+    <span class="etiqueta-foto">Ahora</span>
+    <img id="modal-img-ahora" class="img-ampliable" src="" alt="Estado actual del lugar">
+  </figure>
+</div>
 
       <p id="modal-descripcion"></p>
 
@@ -55,5 +55,24 @@
       <img id="imagen-ampliada" src="" alt="Imagen ampliada">
     </div>
   </div>
+  <div id="visor-fullscreen" class="visor-fullscreen oculto" aria-hidden="true">
+  <button id="cerrar-visor" class="visor-cerrar" aria-label="Cerrar imagen">&times;</button>
+
+  <div class="visor-pista" id="visor-pista">
+    <div class="visor-slide" data-slide="0">
+      <span class="visor-epoca">Antes</span>
+      <img id="visor-img-antes" src="" alt="Vista ampliada antes">
+    </div>
+    <div class="visor-slide" data-slide="1">
+      <span class="visor-epoca">Ahora</span>
+      <img id="visor-img-ahora" src="" alt="Vista ampliada ahora">
+    </div>
+  </div>
+
+  <div class="visor-dots" id="visor-dots">
+    <span class="visor-dot activo"></span>
+    <span class="visor-dot"></span>
+  </div>
+</div>
 </body>
 </html>
